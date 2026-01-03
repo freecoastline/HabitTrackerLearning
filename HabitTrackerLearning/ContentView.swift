@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var checkedHabits: Set<String> = []
     let habits = ["Morning Exercise", "Drink Water", "Read a Book", "Meditate", "Journal"]
     var body: some View {
         NavigationStack {
@@ -29,10 +30,22 @@ struct ContentView: View {
                         }
                     } label: {
                         HStack {
-                            Image(systemName: "circle")
-                                .foregroundStyle(.green)
+                            Button {
+                                if checkedHabits.contains(habit) {
+                                    checkedHabits.remove(habit)
+                                } else {
+                                    checkedHabits.insert(habit)
+                                }
+                            } label: {
+                                Image(systemName: checkedHabits.contains(habit) ? "checkmark.circle.fill" : "circle")
+                                    .foregroundColor(.green)
+                            }
+                            .buttonStyle(.plain)
+                            
                             Text(habit)
                                 .font(.headline)
+                            
+                            Spacer()
                         }
                     }
                 }
