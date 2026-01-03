@@ -14,8 +14,19 @@ struct ContentView: View {
             List {
                 ForEach(habits, id: \.self) { habit in
                     NavigationLink {
-                        Text("Detail for \(habit)")
-                            .font(.largeTitle)
+                        VStack(spacing: 20) {
+                            Image(systemName: "checkmark.circle.fill")
+                                .font(.system(size: 80))
+                                .foregroundColor(.green)
+
+                            Text(habit)
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+
+                            Text("Track your progress here!")
+                                .foregroundColor(.secondary)
+                            Spacer()
+                        }
                     } label: {
                         HStack {
                             Image(systemName: "circle")
