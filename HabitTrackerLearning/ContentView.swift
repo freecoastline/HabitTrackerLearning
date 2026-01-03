@@ -8,40 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    let habits = ["Morning Exercise", "Drink Water", "Read a Book", "Meditate", "Journal"]
     var body: some View {
-        VStack(spacing: 20) {
-            Spacer()
-            Image(systemName: "checkmark.circle.fill")
-                .imageScale(.large)
-                .foregroundStyle(.orange)
-            Text("My Habit Tracker")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            HStack(spacing: 30) {
-                VStack {
-                    Image(systemName: "flame.fill")
-                        .foregroundColor(.orange)
-                    Text("Streak")
+        List {
+            ForEach(habits, id: \.self) { habit in
+                HStack {
+                    Image(systemName: "circle")
+                        .foregroundStyle(.green)
+                    Text(habit)
+                        .font(.headline)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
                         .font(.caption)
                 }
-                
-                VStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.yellow)
-                    Text("Streak")
-                        .font(.caption)
-                }
-                
-                VStack {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.green)
-                    Text("Done")
-                        .font(.caption)
-                }
-                
             }
-            .font(.system(size: 30))
-            Spacer()
         }
     }
 }
