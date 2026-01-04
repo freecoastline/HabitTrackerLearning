@@ -39,7 +39,16 @@ struct ContentView: View {
                             }
                         }))
                     }
+                    .swipeActions {
+                        Button("delete", role: .destructive) {
+                            habits.removeAll {
+                                $0.id == habit.id
+                            }
+                            checkedHabits.remove(habit.id)
+                        }
+                    }
                 }
+
             }
             .navigationTitle("My habits")
         }
