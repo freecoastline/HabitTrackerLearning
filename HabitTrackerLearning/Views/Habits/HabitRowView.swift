@@ -38,6 +38,8 @@ struct HabitRowView: View {
 }
 
 #Preview {
-    HabitRowView(habit: Habit.sampleHabits[0], isChecked: .constant(false))
-    HabitRowView(habit: Habit.sampleHabits[1], isChecked: .constant(true))
+    List {
+        HabitRowView(habit: Habit.sampleHabits[0], isChecked: .constant(false))
+        HabitRowView(habit: Habit.sampleHabits[1], isChecked: .constant(true))
+    }
 }

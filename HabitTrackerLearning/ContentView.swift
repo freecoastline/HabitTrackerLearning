@@ -8,19 +8,19 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var checkedHabits: Set<String> = []
-    let habits = ["Morning Exercise", "Drink Water", "Read a Book", "Meditate", "Journal"]
+    @State private var checkedHabits: Set<UUID> = []
+    @State private var habits:[Habit] = Habit.sampleHabits
     var body: some View {
         NavigationStack {
             List {
-                ForEach(habits, id: \.self) { habit in
+                ForEach(habits) { habit in
                     NavigationLink {
                         VStack(spacing: 20) {
                             Image(systemName: "checkmark.circle.fill")
                                 .font(.system(size: 80))
                                 .foregroundColor(.green)
 
-                            Text(habit)
+                            Text(habit.name)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
 
@@ -31,18 +31,18 @@ struct ContentView: View {
                     } label: {
                         HStack {
                             Button {
-                                if checkedHabits.contains(habit) {
-                                    checkedHabits.remove(habit)
+                                if checkedHabits.contains(habit.id) {
+                                    checkedHabits.remove(habit.id)
                                 } else {
-                                    checkedHabits.insert(habit)
+                                    checkedHabits.insert(habit.id)
                                 }
                             } label: {
-                                Image(systemName: checkedHabits.contains(habit) ? "checkmark.circle.fill" : "circle")
+                                Image(systemName: checkedHabits.contains(habit.id) ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(.green)
                             }
                             .buttonStyle(.plain)
                             
-                            Text(habit)
+                            Text(habit.name)
                                 .font(.headline)
                             
                             Spacer()
