@@ -29,24 +29,15 @@ struct ContentView: View {
                             Spacer()
                         }
                     } label: {
-                        HStack {
-                            Button {
-                                if checkedHabits.contains(habit.id) {
-                                    checkedHabits.remove(habit.id)
-                                } else {
-                                    checkedHabits.insert(habit.id)
-                                }
-                            } label: {
-                                Image(systemName: checkedHabits.contains(habit.id) ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(.green)
+                        HabitRowView(habit: habit, isChecked: Binding(get: {
+                            checkedHabits.contains(habit.id)
+                        }, set: { isChecked in
+                            if isChecked {
+                                checkedHabits.insert(habit.id)
+                            } else {
+                                checkedHabits.remove(habit.id)
                             }
-                            .buttonStyle(.plain)
-                            
-                            Text(habit.name)
-                                .font(.headline)
-                            
-                            Spacer()
-                        }
+                        }))
                     }
                 }
             }
