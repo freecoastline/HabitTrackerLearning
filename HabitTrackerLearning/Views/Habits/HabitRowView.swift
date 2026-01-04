@@ -29,9 +29,15 @@ struct HabitRowView: View {
                     Text(description)
                 }
             }
-
+            Spacer()
+            Circle()
+                .fill(habit.color)
+                .frame(width: 12, height: 12)
         }
     }
-    
-    
+}
+
+#Preview {
+    HabitRowView(habit: Habit.sampleHabits[0], isChecked: .constant(false))
+    HabitRowView(habit: Habit.sampleHabits[1], isChecked: .constant(true))
 }
