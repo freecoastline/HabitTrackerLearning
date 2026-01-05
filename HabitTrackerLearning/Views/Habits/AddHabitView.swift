@@ -19,7 +19,7 @@ struct AddHabitView: View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Haibit name", text: $name)
+                    TextField("Habit name", text: $name)
                 } header: {
                     Text("Name")
                 }
@@ -47,7 +47,9 @@ struct AddHabitView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        
+                        let newHabit = Habit(name: name, description: description, color: selectedColor)
+                        habits.append(newHabit)
+                        dismiss()
                     }
                 }
             }
