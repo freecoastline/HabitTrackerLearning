@@ -51,6 +51,13 @@ struct ContentView: View {
 
             }
             .navigationTitle("My habits")
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("Add") {
+                        
+                    }
+                }
+            }
         }
     }
 }
