@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var checkedHabits: Set<UUID> = []
     @State private var habits:[Habit] = Habit.sampleHabits
+    @State private var showingAddHabit: Bool = false
+    
     var body: some View {
         NavigationStack {
             List {
@@ -53,10 +55,15 @@ struct ContentView: View {
             .navigationTitle("My habits")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Add") {
-                        
+                    Button {
+                        showingAddHabit = true
+                    } label: {
+                        Label("Add Habit", systemImage: "plus")
                     }
                 }
+            }
+            .sheet(isPresented: $showingAddHabit) {
+                AddHabitView(habits: $habits)
             }
         }
     }
