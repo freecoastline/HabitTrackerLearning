@@ -51,6 +51,7 @@ struct AddHabitView: View {
                         habits.append(newHabit)
                         dismiss()
                     }
+                    .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                 }
             }
         }
