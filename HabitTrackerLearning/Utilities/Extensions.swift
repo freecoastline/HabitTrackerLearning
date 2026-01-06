@@ -16,3 +16,14 @@ extension Array where Element == Habit {
         return binding[index]
     }
 }
+
+
+extension Color {
+    init?(hex: String) {
+        return nil
+    }
+    
+    func toHex() -> String? {
+        return nil
+    }
+}
