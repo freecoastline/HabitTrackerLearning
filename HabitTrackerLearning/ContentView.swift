@@ -74,10 +74,8 @@ struct ContentView: View {
                 AddHabitView(habits: $habits)
             }
             .sheet(item: $habitToEdit) { habitToEdit in
-                if let index = habits.firstIndex(where: { habit in
-                    habit.id == habitToEdit.id
-                }) {
-                    EditHabitView(habit: $habits[index])
+                if let bindingHabit = habits.binding(for: habitToEdit, in: $habits) {
+                    EditHabitView(habit: bindingHabit)
                 }
             }
         }
