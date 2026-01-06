@@ -20,6 +20,8 @@ extension Array where Element == Habit {
 
 extension Color {
     init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
         return nil
     }
     
