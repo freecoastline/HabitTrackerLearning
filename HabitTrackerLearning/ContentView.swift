@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var checkedHabits: Set<UUID> = []
     @State private var habits:[Habit] = Habit.sampleHabits
     @State private var showingAddHabit: Bool = false
+    @State private var habitToEdit: Habit?
     
     var body: some View {
         NavigationStack {
@@ -42,6 +43,13 @@ struct ContentView: View {
                         }))
                     }
                     .swipeActions {
+                        Button {
+                            habitToEdit = habit
+                        } label: {
+                            Label("Edit Habit", systemImage: "pencil")
+                        }
+                        .tint(.blue)
+
                         Button("delete", role: .destructive) {
                             habits.removeAll {
                                 $0.id == habit.id
@@ -64,6 +72,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingAddHabit) {
                 AddHabitView(habits: $habits)
+            }
+            .sheet(item: $habitToEdit) { item in
+                
             }
         }
     }
