@@ -20,18 +20,18 @@ struct HabitRowView: View {
             } label: {
                 Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
-                    .foregroundStyle(habit.color)
+                    .foregroundStyle(Color(habit.colorHex))
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading) {
                 Text(habit.name)
-                if let description = habit.description, !description.isEmpty {
+                if let description = habit.habitDescription, !description.isEmpty {
                     Text(description)
                 }
             }
             Spacer()
             Circle()
-                .fill(habit.color)
+                .fill(Color(habit.colorHex))
                 .frame(width: 12, height: 12)
         }
     }

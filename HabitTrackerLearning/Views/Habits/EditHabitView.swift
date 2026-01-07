@@ -18,8 +18,8 @@ struct EditHabitView: View {
     init(habit: Binding<Habit>) {
         _habit = habit
         _name = State(initialValue: habit.wrappedValue.name)
-        _description = State(initialValue: habit.wrappedValue.description ?? "")
-        _selectedColor = State(initialValue: habit.wrappedValue.color)
+        _description = State(initialValue: habit.wrappedValue.habitDescription ?? "")
+        _selectedColor = State(initialValue: Color(habit.wrappedValue.colorHex))
     }
     
     var body: some View {
@@ -55,8 +55,8 @@ struct EditHabitView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         habit.name = name
-                        habit.description = description
-                        habit.color = selectedColor
+                        habit.habitDescription = description
+                        habit.colorHex = selectedColor.toHex() ?? "#4CAF50"
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)

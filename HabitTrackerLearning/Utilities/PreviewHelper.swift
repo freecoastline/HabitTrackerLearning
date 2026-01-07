@@ -13,7 +13,7 @@ extension Habit {
     static var preview: Habit {
         Habit(
              name: "Morning Exercise",
-             description: "30 minutes of cardio",
+             habitDescription: "30 minutes of cardio",
              color: .blue
          )
     }

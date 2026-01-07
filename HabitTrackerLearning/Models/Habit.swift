@@ -28,10 +28,10 @@ class Habit: Identifiable {
     var habitDescription: String?
 
     /// The color associated with this habit
-    var color: Color
+    var colorHex: String
 
     /// Date when this habit was created
-    let createdAt: Date
+    var createdAt: Date
 
     // MARK: Initializer
 
@@ -45,14 +45,14 @@ class Habit: Identifiable {
     init(
         id: UUID = UUID(),
         name: String,
-        description: String? = nil,
+        habitDescription: String? = nil,
         color: Color = .green,
         createdAt: Date = Date()
     ) {
         self.id = id
         self.name = name
-        self.description = description
-        self.color = color
+        self.habitDescription = habitDescription
+        self.colorHex = color.toHex() ?? "#4CAF50"
         self.createdAt = createdAt
     }
 }
@@ -62,11 +62,11 @@ class Habit: Identifiable {
 extension Habit {
     /// Sample habits for testing and previews
     static let sampleHabits: [Habit] = [
-        Habit(name: "Morning Exercise", description: "30 minutes of cardio", color: .blue),
-        Habit(name: "Drink Water", description: "8 glasses per day", color: .cyan),
-        Habit(name: "Read a Book", description: "Read for 20 minutes", color: .orange),
-        Habit(name: "Meditate", description: "10 minutes of meditation", color: .purple),
-        Habit(name: "Journal", description: "Write daily reflections", color: .pink)
+        Habit(name: "Morning Exercise", habitDescription: "30 minutes of cardio", color: .blue),
+        Habit(name: "Drink Water", habitDescription: "8 glasses per day", color: .cyan),
+        Habit(name: "Read a Book", habitDescription: "Read for 20 minutes", color: .orange),
+        Habit(name: "Meditate", habitDescription: "10 minutes of meditation", color: .purple),
+        Habit(name: "Journal", habitDescription: "Write daily reflections", color: .pink)
     ]
 }
 #endif

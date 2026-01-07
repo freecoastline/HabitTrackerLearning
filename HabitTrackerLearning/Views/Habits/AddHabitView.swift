@@ -47,7 +47,7 @@ struct AddHabitView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
-                        let newHabit = Habit(name: name, description: description, color: selectedColor)
+                        let newHabit = Habit(name: name, habitDescription: description, color: selectedColor)
                         habits.append(newHabit)
                         dismiss()
                     }
