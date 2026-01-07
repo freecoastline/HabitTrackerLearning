@@ -19,13 +19,13 @@ class Habit: Identifiable {
 
     /// Unique identifier for this habit
     /// UUID() generates a random unique ID automatically
-    let id: UUID
+    @Attribute(.unique) var id: UUID
 
     /// The name of the habit (e.g., "Morning Exercise")
     var name: String
 
     /// Optional detailed description of the habit
-    var description: String?
+    var habitDescription: String?
 
     /// The color associated with this habit
     var color: Color
