@@ -7,11 +7,14 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 // MARK: - Habit Model
 /// Represents a single habit that the user wants to track
 /// Conforms to Identifiable so SwiftUI can track each habit uniquely in Lists
-struct Habit: Identifiable {
+///
+@Model
+class Habit: Identifiable {
     // MARK: Properties
 
     /// Unique identifier for this habit
