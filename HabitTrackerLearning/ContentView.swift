@@ -79,6 +79,9 @@ struct ContentView: View {
                 }
             }
         }
+        .onAppear {
+            Color.testHexConversion()
+        }
     }
 }
 
