@@ -42,6 +42,13 @@ class Habit: Identifiable {
     ///   - description: Optional description
     ///   - color: Color for the habit (defaults to green)
     ///   - createdAt: Creation date (defaults to now)
+    ///
+    var color: Color {
+        get {
+            Color(colorHex)
+        }
+    }
+    
     init(
         id: UUID = UUID(),
         name: String,

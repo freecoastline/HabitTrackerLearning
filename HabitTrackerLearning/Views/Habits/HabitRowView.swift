@@ -20,7 +20,7 @@ struct HabitRowView: View {
             } label: {
                 Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
-                    .foregroundStyle(Color(habit.colorHex))
+                    .foregroundStyle(habit.color)
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading) {
@@ -31,7 +31,7 @@ struct HabitRowView: View {
             }
             Spacer()
             Circle()
-                .fill(Color(habit.colorHex))
+                .fill(habit.color)
                 .frame(width: 12, height: 12)
         }
     }

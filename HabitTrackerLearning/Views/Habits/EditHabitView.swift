@@ -19,7 +19,7 @@ struct EditHabitView: View {
         _habit = habit
         _name = State(initialValue: habit.wrappedValue.name)
         _description = State(initialValue: habit.wrappedValue.habitDescription ?? "")
-        _selectedColor = State(initialValue: Color(habit.wrappedValue.colorHex))
+        _selectedColor = State(initialValue: Color(habit.wrappedValue.color))
     }
     
     var body: some View {
