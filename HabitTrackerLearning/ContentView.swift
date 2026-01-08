@@ -76,6 +76,12 @@ struct ContentView: View {
             .sheet(item: $habitToEdit) { habitToEdit in
                 EditHabitView(habit: Binding(get: { habitToEdit }, set: { _ in }))
             }
+        }.task {
+            if habits.isEmpty {
+                for sampleHabit in Habit.sampleHabits {
+                    modelContext.insert(sampleHabit)
+                }
+            }
         }
     }
 }
