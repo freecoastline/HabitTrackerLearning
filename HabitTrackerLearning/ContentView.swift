@@ -54,6 +54,7 @@ struct ContentView: View {
 
                         Button("delete", role: .destructive) {
                             modelContext.delete(habit)
+                            try? modelContext.save()
                             checkedHabits.remove(habit.id)
                         }
                     }
