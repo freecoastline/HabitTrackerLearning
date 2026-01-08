@@ -75,7 +75,7 @@ struct ContentView: View {
                 AddHabitView()
             }
             .sheet(item: $habitToEdit) { habitToEdit in
-                EditHabitView(habit: Binding(get: { habitToEdit }, set: { _ in }))
+                EditHabitView(habit: habitToEdit)
             }
         }.task {
             if habits.isEmpty {
