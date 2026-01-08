@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State private var checkedHabits: Set<UUID> = []
     @Query private var habits:[Habit]
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         NavigationStack {
@@ -51,9 +53,7 @@ struct ContentView: View {
                         .tint(.blue)
 
                         Button("delete", role: .destructive) {
-                            habits.removeAll {
-                                $0.id == habit.id
-                            }
+                            modelContext.delete(habit)
                             checkedHabits.remove(habit.id)
                         }
                     }
@@ -71,16 +71,11 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingAddHabit) {
-                AddHabitView(habits: $habits)
+                AddHabitView()
             }
             .sheet(item: $habitToEdit) { habitToEdit in
-                if let bindingHabit = habits.binding(for: habitToEdit, in: $habits) {
-                    EditHabitView(habit: bindingHabit)
-                }
+                EditHabitView(habit: Binding(get: { habitToEdit }, set: { _ in }))
             }
-        }
-        .onAppear {
-            Color.testHexConversion()
         }
     }
 }

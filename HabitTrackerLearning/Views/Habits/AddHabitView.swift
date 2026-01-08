@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AddHabitView: View {
     @Environment(\.dismiss) var dismiss
-    @Binding var habits: [Habit]
+    @Environment(\.modelContext) var modelContext
     
     @State private var name: String = ""
     @State private var description: String = ""
@@ -48,7 +49,7 @@ struct AddHabitView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         let newHabit = Habit(name: name, habitDescription: description, color: selectedColor)
-                        habits.append(newHabit)
+                        modelContext.insert(newHabit)
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -60,5 +61,5 @@ struct AddHabitView: View {
 }
 
 #Preview {
-    AddHabitView(habits: .constant([]))
+    AddHabitView().modelContainer(for: Habit.self)
 }
