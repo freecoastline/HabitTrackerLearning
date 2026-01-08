@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct EditHabitView: View {
     @Environment(\.dismiss) var dismiss
@@ -20,7 +21,7 @@ struct EditHabitView: View {
         _habit = habit
         _name = State(initialValue: habit.wrappedValue.name)
         _description = State(initialValue: habit.wrappedValue.habitDescription ?? "")
-        _selectedColor = State(initialValue: Color(habit.wrappedValue.color))
+        _selectedColor = State(initialValue: habit.wrappedValue.color)
     }
     
     var body: some View {
@@ -58,6 +59,7 @@ struct EditHabitView: View {
                         habit.name = name
                         habit.habitDescription = description
                         habit.color = selectedColor
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
@@ -68,5 +70,5 @@ struct EditHabitView: View {
 }
 
 #Preview {
-    EditHabitView(habit: .constant(Habit(name: "ddd")))
+    EditHabitView(habit: .constant(Habit(name: "ddd"))).modelContainer(for: Habit.self)
 }
