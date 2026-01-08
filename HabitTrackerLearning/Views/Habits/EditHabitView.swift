@@ -12,16 +12,16 @@ import SwiftData
 struct EditHabitView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
-    @Binding var habit: Habit
+    let habit: Habit
     @State private var name: String
     @State private var description: String
     @State private var selectedColor: Color
     
-    init(habit: Binding<Habit>) {
-        _habit = habit
-        _name = State(initialValue: habit.wrappedValue.name)
-        _description = State(initialValue: habit.wrappedValue.habitDescription ?? "")
-        _selectedColor = State(initialValue: habit.wrappedValue.color)
+    init(habit: Habit) {
+        self.habit = habit
+        _name = State(initialValue: habit.name)
+        _description = State(initialValue: habit.habitDescription ?? "")
+        _selectedColor = State(initialValue: habit.color)
     }
     
     var body: some View {
@@ -70,5 +70,5 @@ struct EditHabitView: View {
 }
 
 #Preview {
-    EditHabitView(habit: .constant(Habit(name: "ddd"))).modelContainer(for: Habit.self)
+    EditHabitView(habit: Habit(name: "ddd")).modelContainer(for: Habit.self)
 }
