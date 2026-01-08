@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var checkedHabits: Set<UUID> = []
-    @State private var habits:[Habit] = Habit.sampleHabits
+    @Query private var habits:[Habit]
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
     
