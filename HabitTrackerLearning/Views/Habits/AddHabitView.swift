@@ -50,6 +50,7 @@ struct AddHabitView: View {
                     Button("Save") {
                         let newHabit = Habit(name: name, habitDescription: description, color: selectedColor)
                         modelContext.insert(newHabit)
+                        try? modelContext.save()
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
