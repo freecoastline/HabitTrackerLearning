@@ -56,7 +56,7 @@ struct EditHabitView: View {
                     Button("Save") {
                         habit.name = name
                         habit.habitDescription = description
-                        habit.colorHex = selectedColor.toHex() ?? "#4CAF50"
+                        habit.color = selectedColor
                         dismiss()
                     }
                     .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)

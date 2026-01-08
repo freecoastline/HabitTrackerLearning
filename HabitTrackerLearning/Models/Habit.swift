@@ -47,6 +47,9 @@ class Habit: Identifiable {
         get {
             Color(colorHex)
         }
+        set {
+            colorHex = newValue.toHex() ?? "#4CAF50"
+        }
     }
     
     init(
