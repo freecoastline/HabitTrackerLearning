@@ -45,7 +45,7 @@ class Habit: Identifiable {
     ///
     var color: Color {
         get {
-            Color(colorHex)
+            Color(hex: colorHex) ?? .green
         }
         set {
             colorHex = newValue.toHex() ?? "#4CAF50"
