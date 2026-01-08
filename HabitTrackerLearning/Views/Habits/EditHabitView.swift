@@ -10,6 +10,7 @@ import SwiftUI
 
 struct EditHabitView: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     @Binding var habit: Habit
     @State private var name: String
     @State private var description: String
