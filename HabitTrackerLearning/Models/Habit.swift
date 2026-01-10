@@ -33,6 +33,9 @@ class Habit: Identifiable {
     /// Date when this habit was created
     var createdAt: Date
 
+    @Relationship(deleteRule: .cascade, inverse: \CheckIn.habit)
+    var checkIns: [CheckIn] = []
+    
     // MARK: Initializer
 
     /// Creates a new Habit with default values
