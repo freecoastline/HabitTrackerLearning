@@ -14,6 +14,6 @@ struct HabitTrackerLearningApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Habit.self)
+        .modelContainer(for: [Habit.self, CheckIn.self])
     }
 }
