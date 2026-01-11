@@ -68,6 +68,14 @@ class Habit: Identifiable {
         self.colorHex = color.toHex() ?? "#4CAF50"
         self.createdAt = createdAt
     }
+    
+    // MARK: - Check-in Helper Methods
+    func isCheckedIn(for date: Date) -> Bool {
+        let calendar = Calendar.current
+        return checkIns.contains { CheckIn in
+            calendar.isDate(CheckIn.date, inSameDayAs: date)
+        }
+    }
 }
 
 // MARK: - Preview Helper
