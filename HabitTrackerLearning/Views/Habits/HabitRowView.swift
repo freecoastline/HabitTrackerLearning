@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 // MARK: - HabitRowView
 /// A reusable row component for displaying a single habit in a list
@@ -13,6 +14,8 @@ import SwiftUI
 struct HabitRowView: View {
     let habit: Habit
     @Binding var isChecked: Bool
+    @Environment(\.modelContext) var modelContext
+    
     var body: some View {
         HStack(spacing: 12) {
             Button {
