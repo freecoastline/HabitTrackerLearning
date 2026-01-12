@@ -14,6 +14,9 @@ import SwiftData
 struct HabitRowView: View {
     let habit: Habit
     @Environment(\.modelContext) var modelContext
+    @State private var showingDatePicker = false
+    @State private var selectedDate = Date()
+    
     
     private var isCheckInToday: Bool {
         habit.isCheckedIn(for: Date())
@@ -29,6 +32,10 @@ struct HabitRowView: View {
                     .foregroundStyle(habit.color)
             }
             .buttonStyle(.plain)
+            .onLongPressGesture {
+                selectedDate = Date()
+                showingDatePicker = true
+            }
             VStack(alignment: .leading) {
                 Text(habit.name)
                 if let description = habit.habitDescription, !description.isEmpty {
@@ -40,7 +47,15 @@ struct HabitRowView: View {
                 .fill(habit.color)
                 .frame(width: 12, height: 12)
         }
+        .sheet(isPresented: $showingDatePicker) {
+            NavigationStack {
+                Text("Date picker will go here")
+                    .navigationTitle("Check-in Date")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+        }
     }
+    
 }
 
 #Preview {
