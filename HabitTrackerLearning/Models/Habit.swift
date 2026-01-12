@@ -76,6 +76,23 @@ class Habit: Identifiable {
             calendar.isDate(CheckIn.date, inSameDayAs: date)
         }
     }
+    
+    func checkIn(for date: Date) -> CheckIn? {
+        let calendar = Calendar.current
+        return checkIns.first { CheckIn in
+            calendar.isDate(CheckIn.date, inSameDayAs: date)
+        }
+    }
+    
+    func toggleCheckIn(for date: Date, context: ModelContext) {
+        if let existingCheckIn = checkIn(for: date) {
+            context.delete(existingCheckIn)
+        } else {
+            let newCheckIn = CheckIn(id: UUID(), date: date, habit: self)
+            context.insert(newCheckIn)
+        }
+        try? context.save()
+    }
 }
 
 // MARK: - Preview Helper
