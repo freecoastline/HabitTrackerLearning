@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @State private var checkedHabits: Set<UUID> = []
     @Query private var habits:[Habit]
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
@@ -34,15 +33,7 @@ struct ContentView: View {
                             Spacer()
                         }
                     } label: {
-                        HabitRowView(habit: habit, isChecked: Binding(get: {
-                            checkedHabits.contains(habit.id)
-                        }, set: { isChecked in
-                            if isChecked {
-                                checkedHabits.insert(habit.id)
-                            } else {
-                                checkedHabits.remove(habit.id)
-                            }
-                        }))
+                        HabitRowView(habit: habit)
                     }
                     .swipeActions {
                         Button {
@@ -55,7 +46,6 @@ struct ContentView: View {
                         Button("delete", role: .destructive) {
                             modelContext.delete(habit)
                             try? modelContext.save()
-                            checkedHabits.remove(habit.id)
                         }
                     }
                 }
