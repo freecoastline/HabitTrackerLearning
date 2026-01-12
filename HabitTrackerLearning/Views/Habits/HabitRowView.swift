@@ -32,10 +32,6 @@ struct HabitRowView: View {
                     .foregroundStyle(habit.color)
             }
             .buttonStyle(.plain)
-            .onLongPressGesture {
-                selectedDate = Date()
-                showingDatePicker = true
-            }
             VStack(alignment: .leading) {
                 Text(habit.name)
                 if let description = habit.habitDescription, !description.isEmpty {
@@ -46,6 +42,10 @@ struct HabitRowView: View {
             Circle()
                 .fill(habit.color)
                 .frame(width: 12, height: 12)
+        }
+        .onLongPressGesture {
+            selectedDate = Date()
+            showingDatePicker = true
         }
         .sheet(isPresented: $showingDatePicker) {
             NavigationStack {
