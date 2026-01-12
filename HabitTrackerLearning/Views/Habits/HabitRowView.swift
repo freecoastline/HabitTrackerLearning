@@ -23,7 +23,7 @@ struct HabitRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                isChecked.toggle()
+                habit.toggleCheckIn(for: Date(), context: modelContext)
             } label: {
                 Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
