@@ -13,7 +13,6 @@ import SwiftData
 /// This demonstrates component extraction and @Binding for parent-child communication
 struct HabitRowView: View {
     let habit: Habit
-    @Binding var isChecked: Bool
     @Environment(\.modelContext) var modelContext
     
     private var isCheckInToday: Bool {
@@ -25,7 +24,7 @@ struct HabitRowView: View {
             Button {
                 habit.toggleCheckIn(for: Date(), context: modelContext)
             } label: {
-                Image(systemName: isChecked ? "checkmark.circle.fill" : "circle")
+                Image(systemName: isCheckInToday ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
                     .foregroundStyle(habit.color)
             }
@@ -46,7 +45,7 @@ struct HabitRowView: View {
 
 #Preview {
     List {
-        HabitRowView(habit: Habit.sampleHabits[0], isChecked: .constant(false))
-        HabitRowView(habit: Habit.sampleHabits[1], isChecked: .constant(true))
+        HabitRowView(habit: Habit.sampleHabits[0])
+        HabitRowView(habit: Habit.sampleHabits[1])
     }
 }
