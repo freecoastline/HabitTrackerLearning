@@ -16,6 +16,10 @@ struct HabitRowView: View {
     @Binding var isChecked: Bool
     @Environment(\.modelContext) var modelContext
     
+    private var isCheckInToday: Bool {
+        habit.isCheckedIn(for: Date())
+    }
+    
     var body: some View {
         HStack(spacing: 12) {
             Button {
