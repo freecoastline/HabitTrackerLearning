@@ -47,5 +47,5 @@ struct HabitRowView: View {
     List {
         HabitRowView(habit: Habit.sampleHabits[0])
         HabitRowView(habit: Habit.sampleHabits[1])
-    }
+    }.modelContainer(for: [Habit.self, CheckIn.self], inMemory: true)
 }
