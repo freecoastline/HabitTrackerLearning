@@ -49,9 +49,16 @@ struct HabitRowView: View {
         }
         .sheet(isPresented: $showingDatePicker) {
             NavigationStack {
-                Text("Date picker will go here")
-                    .navigationTitle("Check-in Date")
-                    .navigationBarTitleDisplayMode(.inline)
+                VStack(spacing: 20) {
+                    Text("Select a date to check in")
+                        .font(.headline)
+
+                    DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                        .datePickerStyle(.graphical).padding()
+                    Spacer()
+                }
+                .navigationTitle("Check-in Date")
+                .navigationBarTitleDisplayMode(.inline)
             }
         }
     }
