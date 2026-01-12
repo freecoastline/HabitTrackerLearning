@@ -53,7 +53,7 @@ struct HabitRowView: View {
                     Text("Select a date to check in")
                         .font(.headline)
 
-                    DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                    DatePicker("Date", selection: $selectedDate, in: ...Date() ,displayedComponents: .date)
                         .datePickerStyle(.graphical).padding()
                     Spacer()
                 }
