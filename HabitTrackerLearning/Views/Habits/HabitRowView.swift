@@ -17,9 +17,12 @@ struct HabitRowView: View {
     @State private var showingDatePicker = false
     @State private var selectedDate = Date()
     
-    
     private var isCheckInToday: Bool {
         habit.isCheckedIn(for: Date())
+    }
+    
+    private var isSelectedDateChecked: Bool {
+        habit.isCheckedIn(for: selectedDate)
     }
     
     var body: some View {
@@ -66,7 +69,7 @@ struct HabitRowView: View {
                         }
                     }
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("confirm") {
+                        Button(isSelectedDateChecked ? "remove checkIn" : "Check In") {
                             habit.toggleCheckIn(for: selectedDate, context: modelContext)
                             showingDatePicker = false
                         }
