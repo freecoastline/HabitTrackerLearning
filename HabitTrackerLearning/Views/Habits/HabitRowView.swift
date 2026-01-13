@@ -65,6 +65,12 @@ struct HabitRowView: View {
                             showingDatePicker = false
                         }
                     }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("confirm") {
+                            habit.toggleCheckIn(for: selectedDate, context: modelContext)
+                            showingDatePicker = false
+                        }
+                    }
                 }
             }
         }
