@@ -11,6 +11,10 @@ import SwiftData
 
 struct CheckInHistoryView: View {
     let habit: Habit
+    private var sortedCheckIns: [CheckIn] {
+        habit.checkIns.sorted { $0.date > $1.date }
+    }
+    
     @Environment(\.modelContext) private var modelContext
     var body: some View {
         
