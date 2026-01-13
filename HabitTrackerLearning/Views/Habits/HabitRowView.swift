@@ -59,6 +59,13 @@ struct HabitRowView: View {
                 }
                 .navigationTitle("Check-in Date")
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("cancel") {
+                            showingDatePicker = false
+                        }
+                    }
+                }
             }
         }
     }
