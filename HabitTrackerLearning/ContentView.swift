@@ -19,19 +19,7 @@ struct ContentView: View {
             List {
                 ForEach(habits) { habit in
                     NavigationLink {
-                        VStack(spacing: 20) {
-                            Image(systemName: "checkmark.circle.fill")
-                                .font(.system(size: 80))
-                                .foregroundColor(.green)
-
-                            Text(habit.name)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-
-                            Text("Track your progress here!")
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
+                        CheckInHistoryView(habit: habit)
                     } label: {
                         HabitRowView(habit: habit)
                     }

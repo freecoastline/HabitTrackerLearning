@@ -55,6 +55,23 @@ class Habit: Identifiable {
         }
     }
     
+    // MARK: - Streak
+    var currentStreak: Int {
+        var streak = 0
+        var currentDate = Date()
+        let calendar = Calendar.current
+        
+        while isCheckedIn(for: currentDate) {
+            streak += 1
+            guard let previousDay = calendar.date(byAdding: .day, value: -1, to: currentDate) else {
+                break
+            }
+            currentDate = previousDay
+        }
+        return streak
+    }
+    
+    
     init(
         id: UUID = UUID(),
         name: String,
