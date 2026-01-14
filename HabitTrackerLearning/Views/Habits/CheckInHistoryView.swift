@@ -20,7 +20,13 @@ struct CheckInHistoryView: View {
         NavigationStack {
             List {
                 ForEach(sortedCheckIns) { CheckIn in
-                    
+                    HStack {
+                        Image(systemName: "checkmark.circle.fill")
+                            .foregroundStyle(habit.color)
+                        Text(CheckIn.date, style: .date)
+                        
+                        Spacer()
+                    }
                 }
             }
             .navigationTitle("Check-In History")
