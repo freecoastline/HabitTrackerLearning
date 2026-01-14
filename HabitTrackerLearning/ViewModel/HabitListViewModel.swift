@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 @Observable
 class HabitListViewModel {
@@ -14,4 +15,19 @@ class HabitListViewModel {
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
     }
+    
+    // MARK: - Delet
+    func deleteHabit(_ habit: Habit) {
+        modelContext.delete(habit)
+        try? modelContext.save()
+    }
+    
+    func addHabit(name: String, description: String?, color: Color) {
+        let habit = Habit(name: name, habitDescription: description, color: color)
+        modelContext.insert(habit)
+        try? modelContext.save()
+    }
+    
+    func seeSampleData
+    
 }

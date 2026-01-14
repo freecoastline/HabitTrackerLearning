@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
     @Environment(\.modelContext) private var modelContext
+    lazy var viewModel = HabitListViewModel(modelContext: modelContext)
     
     var body: some View {
         NavigationStack {
@@ -32,8 +33,7 @@ struct ContentView: View {
                         .tint(.blue)
 
                         Button("delete", role: .destructive) {
-                            modelContext.delete(habit)
-                            try? modelContext.save()
+                            viewModel.deleteHabit(habit)
                         }
                     }
                 }
