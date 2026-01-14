@@ -6,7 +6,12 @@
 //
 
 import Foundation
+import SwiftData
 
+@Observable
 class HabitListViewModel {
-    
+    private let modelContext: ModelContext
+    init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
 }
