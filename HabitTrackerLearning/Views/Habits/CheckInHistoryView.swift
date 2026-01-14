@@ -17,7 +17,15 @@ struct CheckInHistoryView: View {
     
     @Environment(\.modelContext) private var modelContext
     var body: some View {
-        
+        NavigationStack {
+            List {
+                ForEach(sortedCheckIns) { CheckIn in
+                    
+                }
+            }
+            .navigationTitle("Check-In History")
+            .navigationBarTitleDisplayMode(.inline)
+        }
     }
 }
 
