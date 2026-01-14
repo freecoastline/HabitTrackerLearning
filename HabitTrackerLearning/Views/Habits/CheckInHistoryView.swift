@@ -24,8 +24,17 @@ struct CheckInHistoryView: View {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundStyle(habit.color)
                         Text(CheckIn.date, style: .date)
-                        
                         Spacer()
+                        Text(CheckIn.date, style: .relative)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                .onDelete { IndexSet in
+                    for index in IndexSet {
+                        let checkIn = sortedCheckIns[index]
+                        modelContext.delete(checkIn)
+                        try? modelContext.save()
                     }
                 }
             }
