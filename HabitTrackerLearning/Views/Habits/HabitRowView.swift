@@ -41,6 +41,12 @@ struct HabitRowView: View {
                     Text(description)
                 }
             }
+            if habit.currentStreak > 0 {
+                Text("\(habit.currentStreak) 🔥")
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.orange)
+            }
             Spacer()
             Circle()
                 .fill(habit.color)
