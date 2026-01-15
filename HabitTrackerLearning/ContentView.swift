@@ -13,7 +13,10 @@ struct ContentView: View {
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
     @Environment(\.modelContext) private var modelContext
-    lazy var viewModel = HabitListViewModel(modelContext: modelContext)
+
+    private var viewModel: HabitListViewModel {
+        HabitListViewModel(modelContext: modelContext)
+    }
     
     var body: some View {
         NavigationStack {
@@ -56,11 +59,7 @@ struct ContentView: View {
                 EditHabitView(habit: habitToEdit)
             }
         }.task {
-            if habits.isEmpty {
-                for sampleHabit in Habit.sampleHabits {
-                    modelContext.insert(sampleHabit)
-                }
-            }
+            viewModel.seeSampleData(habits: habits)
         }
     }
 }

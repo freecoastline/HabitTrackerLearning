@@ -28,6 +28,13 @@ class HabitListViewModel {
         try? modelContext.save()
     }
     
-    func seeSampleData
+    func seeSampleData(habits: [Habit]) {
+        if habits.isEmpty {
+            for sampleHabit in Habit.sampleHabits {
+                modelContext.insert(sampleHabit)
+            }
+            try? modelContext.save()
+        }
+    }
     
 }
