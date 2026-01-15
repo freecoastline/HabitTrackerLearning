@@ -13,10 +13,7 @@ struct ContentView: View {
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
     @Environment(\.modelContext) private var modelContext
-
-    private var viewModel: HabitListViewModel {
-        HabitListViewModel(modelContext: modelContext)
-    }
+    @Environment(HabitListViewModel.self) var viewModel
     
     var body: some View {
         NavigationStack {
@@ -58,7 +55,11 @@ struct ContentView: View {
             .sheet(item: $habitToEdit) { habitToEdit in
                 EditHabitView(habit: habitToEdit)
             }
-        }.task {
+        }
+        .onAppear(perform: {
+            viewModel.modelContext = modelContext
+        })
+        .task {
             viewModel.seeSampleData(habits: habits)
         }
     }

@@ -10,9 +10,11 @@ import SwiftData
 
 @main
 struct HabitTrackerLearningApp: App {
+    @State private var viewModel = HabitListViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(viewModel)
         }
         .modelContainer(for: [Habit.self, CheckIn.self])
     }
