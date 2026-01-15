@@ -66,5 +66,6 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    var viewModel = HabitListViewModel()
+    ContentView().modelContainer(for: [Habit.self, CheckIn.self], inMemory: true).environment(viewModel)
 }
