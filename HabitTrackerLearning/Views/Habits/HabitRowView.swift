@@ -33,6 +33,7 @@ struct HabitRowView: View {
                 Image(systemName: isCheckInToday ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
                     .foregroundStyle(habit.color)
+                    .animation(.spring(response: 0.3, dampingFraction: 0.5), value: isCheckInToday)
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading) {
