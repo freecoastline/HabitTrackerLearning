@@ -22,8 +22,24 @@ struct CardView <Content: View>: View {
 }
 
 #Preview {
-    CardView {
-        Text("Text")
-        Text("More")
+    VStack(spacing: 16) {
+        CardView {
+            Text("Habit Streak")
+                .font(.headline)
+            Text("7 days 🔥")
+                .font(.title)
+        }
+
+        CardView {
+            HStack {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.yellow)
+                Text("Achievement!")
+            }
+        }
+
+        CardView {
+            Text("Single line works too")
+        }
     }
 }
