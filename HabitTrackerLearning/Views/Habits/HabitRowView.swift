@@ -28,12 +28,13 @@ struct HabitRowView: View {
     var body: some View {
         HStack(spacing: 12) {
             Button {
-                habit.toggleCheckIn(for: Date(), context: modelContext)
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                    habit.toggleCheckIn(for: Date(), context: modelContext)
+                }
             } label: {
                 Image(systemName: isCheckInToday ? "checkmark.circle.fill" : "circle")
                     .font(.title2)
                     .foregroundStyle(habit.color)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.5), value: isCheckInToday)
             }
             .buttonStyle(.plain)
             VStack(alignment: .leading) {
@@ -47,6 +48,7 @@ struct HabitRowView: View {
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundStyle(.orange)
+                    .transition(.scale.combined(with: .opacity))
             }
             Spacer()
             Circle()
