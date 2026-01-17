@@ -36,7 +36,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                ForEach(habits) { habit in
+                ForEach(sortedHabits) { habit in
                     NavigationLink {
                         CheckInHistoryView(habit: habit)
                     } label: {
