@@ -9,8 +9,24 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    enum HabitSortOption: String, CaseIterable {
+        case name = "Name"
+        case dateCreated = "dateCreated"
+        
+        var sortDescriptor: SortDescriptor<Habit> {
+            switch self {
+            case .name:
+                SortDescriptor(\Habit.name)
+            case .dateCreated:
+                SortDescriptor(\Habit.createdAt, order: .reverse)
+            }
+        }
+    }
+    
     @Query(sort: \Habit.name) private var habits:[Habit]
+    
     @State private var showingAddHabit: Bool = false
+    @State private var selectedSort: HabitSortOption = .name
     @State private var habitToEdit: Habit?
     @Environment(\.modelContext) private var modelContext
     @Environment(HabitListViewModel.self) var viewModel
