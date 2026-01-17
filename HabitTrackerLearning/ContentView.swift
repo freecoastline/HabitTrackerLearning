@@ -24,7 +24,9 @@ struct ContentView: View {
     }
     
     @Query(sort: \Habit.name) private var habits:[Habit]
-    
+    private var sortedHabits: [Habit] {
+        habits.sorted(using: selectedSort.sortDescriptor)
+    }
     @State private var showingAddHabit: Bool = false
     @State private var selectedSort: HabitSortOption = .name
     @State private var habitToEdit: Habit?
