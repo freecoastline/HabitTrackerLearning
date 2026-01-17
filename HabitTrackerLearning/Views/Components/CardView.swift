@@ -11,7 +11,13 @@ import SwiftUI
 struct CardView <Content: View>: View {
     @ViewBuilder let content: Content
     var body: some View {
-        content
+        VStack(alignment: .leading, spacing: 8) {
+            content
+        }
+        .padding()
+        .background(.background)
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
     }
 }
 
