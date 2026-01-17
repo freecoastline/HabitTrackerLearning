@@ -27,24 +27,7 @@ struct EditHabitView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    TextField("Habit name", text: $name)
-                } header: {
-                    Text("Name")
-                }
-                
-                Section {
-                    TextEditor(text: $description)
-                        .frame(height: 100)
-                } header: {
-                    Text("Description (Optional)")
-                }
-                
-                Section {
-                    ColorPicker("Choose a color", selection: $selectedColor)
-                } header: {
-                    Text("Color")
-                }
+                HabitFormFields(name: $name, description: $description, selectorColor: $selectedColor)
             }
             .navigationTitle("Edit habit")
             .navigationBarTitleDisplayMode(.inline)
