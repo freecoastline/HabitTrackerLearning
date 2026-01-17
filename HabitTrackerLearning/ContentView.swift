@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Query private var habits:[Habit]
+    @Query(sort: \Habit.name) private var habits:[Habit]
     @State private var showingAddHabit: Bool = false
     @State private var habitToEdit: Habit?
     @Environment(\.modelContext) private var modelContext
