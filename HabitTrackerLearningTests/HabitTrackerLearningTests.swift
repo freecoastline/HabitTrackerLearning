@@ -40,7 +40,7 @@ final class HabitTrackerLearningTests: XCTestCase {
 
     func testHabitDefaultColor() throws {
         let habit = Habit(name: "test")
-        XCTAssertEqual(habit.colorHex, "#4CAF50")
+        XCTAssertEqual(habit.colorHex, "#34C759")
     }
     
     func testPerformanceExample() throws {
