@@ -37,6 +37,11 @@ final class HabitTrackerLearningTests: XCTestCase {
         XCTAssertNotNil(habit.id)
         XCTAssertNotNil(habit.createdAt)
     }
+
+    func testHabitDefaultColor() throws {
+        let habit = Habit(name: "test")
+        XCTAssertEqual(habit.colorHex, "#4CAF50")
+    }
     
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
