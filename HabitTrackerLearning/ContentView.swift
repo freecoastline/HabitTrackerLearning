@@ -45,7 +45,13 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List {
-                if let quote = dailyQuote {
+                if isLoadingState {
+                    ProgressView()
+                    Text("Loading State ...")
+                        .foregroundStyle(.secondary)
+                } else if let error = quoteError {
+                    Text(error).foregroundStyle(.red)
+                } else if let quote = dailyQuote {
                     Section {
                         VStack(alignment: .leading) {
                             Text("\"\(quote.text)\"")
