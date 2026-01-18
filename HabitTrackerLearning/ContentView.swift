@@ -39,6 +39,8 @@ struct ContentView: View {
     @State private var searchText: String = ""
     
     @State private var dailyQuote: Quote?
+    @State private var isLoadingState = false
+    @State private var quoteError: String?
     
     var body: some View {
         NavigationStack {
@@ -118,11 +120,14 @@ struct ContentView: View {
         })
         .task {
             viewModel.seeSampleData(habits: habits)
+            isLoadingState = true
             do {
                 dailyQuote = try await QuoteService.fetchRandomQuote()
+                quoteError = nil
             } catch {
-                print("Failed to fetch quote: \(error)")
+                quoteError = "Failed to load Quote \(error.localizedDescription)"
             }
+            isLoadingState = false
         }
     }
 }
