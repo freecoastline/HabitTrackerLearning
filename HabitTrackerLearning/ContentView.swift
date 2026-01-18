@@ -38,9 +38,25 @@ struct ContentView: View {
     
     @State private var searchText: String = ""
     
+    @State private var dailyQuote: Quote?
+    
     var body: some View {
         NavigationStack {
             List {
+                if let quote = dailyQuote {
+                    Section {
+                        VStack(alignment: .leading) {
+                            Text("\"\(quote.text)\"")
+                                .font(.body)
+                                .italic()
+                            Text("- \(quote.author)")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    } header: {
+                        Text("Daily Motivation")
+                    }
+                }
                 ForEach(sortedHabits) { habit in
                     NavigationLink {
                         CheckInHistoryView(habit: habit)
@@ -102,6 +118,11 @@ struct ContentView: View {
         })
         .task {
             viewModel.seeSampleData(habits: habits)
+            do {
+                dailyQuote = try await QuoteService.fetchRandomQuote()
+            } catch {
+                print("Failed to fetch quote: \(error)")
+            }
         }
     }
 }
