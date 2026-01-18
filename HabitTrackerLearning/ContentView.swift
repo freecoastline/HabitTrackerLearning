@@ -33,6 +33,8 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(HabitListViewModel.self) var viewModel
     
+    @State private var searchText: String = ""
+    
     var body: some View {
         NavigationStack {
             List {
