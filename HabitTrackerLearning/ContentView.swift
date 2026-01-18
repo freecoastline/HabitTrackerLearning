@@ -47,8 +47,6 @@ struct ContentView: View {
             List {
                 if isLoadingState {
                     ProgressView()
-                    Text("Loading State ...")
-                        .foregroundStyle(.secondary)
                 } else if let error = quoteError {
                     Text(error).foregroundStyle(.red)
                 } else if let quote = dailyQuote {

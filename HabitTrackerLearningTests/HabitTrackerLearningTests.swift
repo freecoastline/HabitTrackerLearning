@@ -26,6 +26,18 @@ final class HabitTrackerLearningTests: XCTestCase {
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
 
+    func testHabitCreation() throws {
+        let name = "Exercise"
+        let description = "Daily workout"
+        
+        let habit = Habit(name: name, habitDescription: description)
+        
+        XCTAssertEqual(name, habit.name)
+        XCTAssertEqual(description, habit.habitDescription)
+        XCTAssertNotNil(habit.id)
+        XCTAssertNotNil(habit.createdAt)
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
