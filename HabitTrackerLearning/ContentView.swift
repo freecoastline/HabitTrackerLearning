@@ -59,6 +59,24 @@ struct ContentView: View {
             }
             .navigationTitle("My habits")
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu {
+                        ForEach(HabitSortOption.allCases, id:\.self) { option in
+                            Button {
+                                selectedSort = option
+                            } label: {
+                                if selectedSort == option {
+                                    Label(option.rawValue, systemImage: "checkmark")
+                                } else {
+                                    Text(option.rawValue)
+                                }
+                            }
+                        }
+                    } label: {
+                        Label("Sort", systemImage: "arrow.up.arrow.down")
+                    }
+                }
+                
                 ToolbarItem(placement: .confirmationAction) {
                     Button {
                         showingAddHabit = true
