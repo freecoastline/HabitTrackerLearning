@@ -25,7 +25,10 @@ struct ContentView: View {
     
     @Query(sort: \Habit.name) private var habits:[Habit]
     private var sortedHabits: [Habit] {
-        habits.sorted(using: selectedSort.sortDescriptor)
+        let filtered = searchText.isEmpty ? habits : habits.filter {
+            $0.name.localizedCaseInsensitiveContains(searchText)
+        }
+        return filtered.sorted(using: selectedSort.sortDescriptor)
     }
     @State private var showingAddHabit: Bool = false
     @State private var selectedSort: HabitSortOption = .name
@@ -57,8 +60,8 @@ struct ContentView: View {
                         }
                     }
                 }
-
             }
+            .searchable(text: $searchText, prompt: "Search habits")
             .navigationTitle("My habits")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
