@@ -28,9 +28,21 @@ final class HabitTrackerLearningUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
+        XCTAssertTrue(app.navigationBars["My habits"].exists)
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
+    @MainActor
+    func testAddHabitButtonShowsSheet() throws {
+        let app = XCUIApplication()
+        app.launch()
+        
+        app.navigationBars["My habits"].buttons["Add Habits"].tap()
+        
+        XCTAssertTrue(app.navigationBars["New Habits"].waitForExistence(timeout: 2))
+    }
+    
+    
     @MainActor
     func testLaunchPerformance() throws {
         // This measures how long it takes to launch your application.
