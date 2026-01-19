@@ -37,9 +37,9 @@ final class HabitTrackerLearningUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         
-        app.navigationBars["My habits"].buttons["Add Habits"].tap()
+        app.navigationBars["My habits"].buttons["Add Habit"].tap()
         
-        XCTAssertTrue(app.navigationBars["New Habits"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.navigationBars["New Habit"].waitForExistence(timeout: 2))
     }
     
     
