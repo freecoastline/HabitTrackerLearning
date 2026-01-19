@@ -12,17 +12,23 @@ import SwiftUI
 
 
 final class HabitTrackerLearningTests: XCTestCase {
+    var testContainer: ModelContainer?
     // MARK: - Create in-memory modelContainer
     func makeTestContainer() throws -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        return try ModelContainer(for: Habit.self, CheckIn.self, configurations: config)
+        let container = try ModelContainer(for: Habit.self, CheckIn.self, configurations: config)
+        testContainer = container
+        return container
     }
     
     @MainActor
     func testViewModelAddHabit() throws {
-        let container = try makeTestContainer()
-        let context = container.mainContext
+        guard let testContainer else {
+            return
+        }
+        let context = testContainer.mainContext
         let viewModel = HabitListViewModel()
+        viewModel.modelContext = context
         viewModel.addHabit(name: "Running", description: "Daily run", color: .blue)
         
         let habits = try context.fetch(FetchDescriptor<Habit>())
