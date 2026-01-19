@@ -37,6 +37,32 @@ final class HabitTrackerLearningTests: XCTestCase {
         XCTAssertEqual(habits.first?.habitDescription, "Daily run")
     }
     
+    @MainActor
+    func testViewModelDeleteHabit() throws {
+        guard let testContainer else {
+            return
+        }
+        let context = testContainer.mainContext
+        let viewModel = HabitListViewModel()
+        viewModel.modelContext = context
+
+        // Create a habit first
+        let habit = Habit(name: "ToDelete")
+        context.insert(habit)
+        try context.save()
+
+        // Verify it exists
+        var habits = try context.fetch(FetchDescriptor<Habit>())
+        XCTAssertEqual(habits.count, 1)
+
+        // Act
+        viewModel.deleteHabit(habit)
+
+        // Assert
+        habits = try context.fetch(FetchDescriptor<Habit>())
+        XCTAssertEqual(habits.count, 0)  // Should be deleted
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
