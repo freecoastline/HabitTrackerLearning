@@ -21,7 +21,7 @@ struct AddHabitView: View {
             Form {
                 HabitFormFields(name: $name, description: $description, selectorColor: $selectedColor)
             }
-            .navigationTitle("New habit")
+            .navigationTitle("New Habit")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

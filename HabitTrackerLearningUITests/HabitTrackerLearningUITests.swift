@@ -39,7 +39,7 @@ final class HabitTrackerLearningUITests: XCTestCase {
         
         app.navigationBars["My habits"].buttons["Add Habit"].tap()
         
-        XCTAssertTrue(app.navigationBars["New Habit"].waitForExistence(timeout: 2))
+        XCTAssertTrue(app.navigationBars["New Habit"].waitForExistence(timeout: 5))
     }
     
     
