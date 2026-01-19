@@ -6,10 +6,15 @@
 //
 
 import XCTest
+import SwiftData
 @testable import HabitTrackerLearning
 
 final class HabitTrackerLearningTests: XCTestCase {
-
+    func makeTestContainer() throws -> ModelContainer {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        return try ModelContainer(for: Habit.self, CheckIn.self, configurations: config)
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
