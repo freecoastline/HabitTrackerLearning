@@ -7,12 +7,28 @@
 
 import XCTest
 import SwiftData
+import SwiftUI
 @testable import HabitTrackerLearning
 
+
 final class HabitTrackerLearningTests: XCTestCase {
+    // MARK: - Create in-memory modelContainer
     func makeTestContainer() throws -> ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         return try ModelContainer(for: Habit.self, CheckIn.self, configurations: config)
+    }
+    
+    @MainActor
+    func testViewModelAddHabit() throws {
+        let container = try makeTestContainer()
+        let context = container.mainContext
+        let viewModel = HabitListViewModel()
+        viewModel.addHabit(name: "Running", description: "Daily run", color: .blue)
+        
+        let habits = try context.fetch(FetchDescriptor<Habit>())
+        XCTAssertEqual(habits.count, 1)
+        XCTAssertEqual(habits.first?.name, "Running")
+        XCTAssertEqual(habits.first?.habitDescription, "Daily run")
     }
     
     override func setUpWithError() throws {
