@@ -19,6 +19,13 @@ struct CheckInHistoryView: View {
     var body: some View {
         NavigationStack {
             List {
+                Section {
+                    HabitGridView(habit: habit)
+                        .padding(.vertical, 8)
+                } header: {
+                    Text("12-Week Activity")
+                }
+
                 ForEach(sortedCheckIns) { CheckIn in
                     HStack {
                         Image(systemName: "checkmark.circle.fill")
