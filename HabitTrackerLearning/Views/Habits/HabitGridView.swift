@@ -23,9 +23,22 @@ struct HabitGridView: View {
         return allDates
     }
     
+    private func cellColor(for date: Date) -> Color {
+        if habit.isCheckedIn(for: date) {
+            return habit.color.opacity(0.8)
+        } else {
+            return Color.gray.opacity(0.1)
+        }
+    }
+    
     var body: some View {
-        let colums = Array(repeating: GridItem(.fixed(12), spacing: 3), count: weeks)
-        
-        
+        let colunms = Array(repeating: GridItem(.fixed(12), spacing: 3), count: weeks)
+        LazyVGrid(columns: colunms) {
+            ForEach(dates, id: \.self) { date in
+                RoundedRectangle(cornerRadius: 2.0)
+                    .fill(Color.gray.opacity(0.1))
+                    .frame(width: 12, height: 12)
+            }
+        }
     }
 }
