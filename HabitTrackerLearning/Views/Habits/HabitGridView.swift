@@ -24,6 +24,8 @@ struct HabitGridView: View {
     }
     
     var body: some View {
+        let colums = Array(repeating: GridItem(.fixed(12), spacing: 3), count: weeks)
+        
         
     }
 }
