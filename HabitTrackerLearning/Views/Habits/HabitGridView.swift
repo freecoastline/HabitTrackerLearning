@@ -36,7 +36,7 @@ struct HabitGridView: View {
         LazyVGrid(columns: colunms) {
             ForEach(dates, id: \.self) { date in
                 RoundedRectangle(cornerRadius: 2.0)
-                    .fill(Color.gray.opacity(0.1))
+                    .fill(cellColor(for: date))
                     .frame(width: 12, height: 12)
             }
         }
