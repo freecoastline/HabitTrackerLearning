@@ -22,6 +22,14 @@ func getLevel(streak int) string {
 	}
 }
 
+func (h Habit) Display() string {
+	return fmt.Sprintf("%s (%s) - streak %d days", h.Name, h.ColorHex, h.Streak)
+}
+
+func (h *Habit) IncrementStreak() {
+	h.Streak = h.Streak + 1
+}
+
 func main() {
 	habit := Habit{
 		Name:     "Exercise",
@@ -41,4 +49,6 @@ func main() {
 	fmt.Println(habit.Name)
 	fmt.Println(habit.ColorHex)
 	fmt.Println(habit.Streak)
+	habit.IncrementStreak()
+	fmt.Println(habit.Display())
 }
