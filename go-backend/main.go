@@ -1,11 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 type Habit struct {
-	Name     string
-	ColorHex string
-	Streak   int
+	Name     string `json:"name"`
+	ColorHex string `json:"colorHex"`
+	Streak   int    `json:"streak"`
 }
 
 func formatHabit(name string, days int) string {
@@ -36,19 +39,6 @@ func main() {
 		ColorHex: "#34C759",
 		Streak:   5,
 	}
-	const maxHabits = 10
-	habitName := "Exercise"
-	var streak int = 25
-	result := formatHabit(habitName, streak)
-	level := getLevel(streak)
-	fmt.Println(maxHabits)
-	fmt.Println(habitName)
-	fmt.Println(streak)
-	fmt.Println(result)
-	fmt.Println("Level:", level)
-	fmt.Println(habit.Name)
-	fmt.Println(habit.ColorHex)
-	fmt.Println(habit.Streak)
-	habit.IncrementStreak()
-	fmt.Println(habit.Display())
+	jsonData, _ := json.Marshal(habit)
+	fmt.Println(string(jsonData))
 }
