@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strings"
 )
 
 type Habit struct {
@@ -11,6 +12,11 @@ type Habit struct {
 	Name     string `json:"name"`
 	ColorHex string `json:"colorHex"`
 	Streak   int    `json:"streak"`
+}
+
+var habits = []Habit{
+	{ID: "1", Name: "Exercise", ColorHex: "#34C759", Streak: 5},
+	{ID: "2", Name: "Reading", ColorHex: "#007AFF", Streak: 12},
 }
 
 func healthHandler(w http.ResponseWriter, r *http.Request) {
@@ -45,6 +51,19 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
+	id := strings.TrimPrefix(r.URL.Path, "/habits/")
+	for _, habit := range habits {
+		if habit.ID == id {
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(habit)
+			return
+		}
+	}
+	w.WriteHeader(http.StatusNotFound)
+	json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
+}
+
 func formatHabit(name string, days int) string {
 	return name + ": " + fmt.Sprintf("%d days", days)
 }
@@ -68,6 +87,7 @@ func (h *Habit) IncrementStreak() {
 }
 
 func main() {
+	http.HandleFunc("/habits/", habitByIDHandler)
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/habits", habitsHandler)
 	fmt.Println("Server starting on: 8080")
