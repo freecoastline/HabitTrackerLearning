@@ -7,6 +7,7 @@ import (
 )
 
 type Habit struct {
+	ID       string `json:"id"`
 	Name     string `json:"name"`
 	ColorHex string `json:"colorHex"`
 	Streak   int    `json:"streak"`
@@ -15,6 +16,15 @@ type Habit struct {
 func healthHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
+}
+
+func habitsHandler(w http.ResponseWriter, r *http.Request) {
+	habits := []Habit{
+		{ID: "1", Name: "Exercise", ColorHex: "#34C759", Streak: 5},
+		{ID: "2", Name: "Reading", ColorHex: "#007AFF", Streak: 12},
+	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(habits)
 }
 
 func formatHabit(name string, days int) string {
@@ -41,6 +51,7 @@ func (h *Habit) IncrementStreak() {
 
 func main() {
 	http.HandleFunc("/health", healthHandler)
+	http.HandleFunc("/habits", habitsHandler)
 	fmt.Println("Server starting on: 8080")
 	http.ListenAndServe(":8080", nil)
 }
