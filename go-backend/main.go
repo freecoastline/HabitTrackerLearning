@@ -3,12 +3,18 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 )
 
 type Habit struct {
 	Name     string `json:"name"`
 	ColorHex string `json:"colorHex"`
 	Streak   int    `json:"streak"`
+}
+
+func healthHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(map[string]string{"status": "ok"})
 }
 
 func formatHabit(name string, days int) string {
@@ -34,11 +40,7 @@ func (h *Habit) IncrementStreak() {
 }
 
 func main() {
-	habit := Habit{
-		Name:     "Exercise",
-		ColorHex: "#34C759",
-		Streak:   5,
-	}
-	jsonData, _ := json.Marshal(habit)
-	fmt.Println(string(jsonData))
+	http.HandleFunc("/health", healthHandler)
+	fmt.Println("Server starting on: 8080")
+	http.ListenAndServe(":8080", nil)
 }
