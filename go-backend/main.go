@@ -27,6 +27,22 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(habits)
 }
 
+func createHabitHandler(w http.ResponseWriter, r *http.Request) {
+	var habit Habit
+
+	err := json.NewDecoder(r.Body).Decode(&habit)
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON"})
+		return
+	}
+	habit.ID = "3"
+	habit.Streak = 0
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(habit)
+}
+
 func formatHabit(name string, days int) string {
 	return name + ": " + fmt.Sprintf("%d days", days)
 }
@@ -52,6 +68,7 @@ func (h *Habit) IncrementStreak() {
 func main() {
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/habits", habitsHandler)
+	http.HandleFunc("/habits/create", createHabitHandler)
 	fmt.Println("Server starting on: 8080")
 	http.ListenAndServe(":8080", nil)
 }
