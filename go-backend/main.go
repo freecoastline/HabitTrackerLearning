@@ -19,28 +19,30 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func habitsHandler(w http.ResponseWriter, r *http.Request) {
-	habits := []Habit{
-		{ID: "1", Name: "Exercise", ColorHex: "#34C759", Streak: 5},
-		{ID: "2", Name: "Reading", ColorHex: "#007AFF", Streak: 12},
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(habits)
-}
+	if r.Method == http.MethodGet {
+		habits := []Habit{
+			{ID: "1", Name: "Exercise", ColorHex: "#34C759", Streak: 5},
+			{ID: "2", Name: "Reading", ColorHex: "#007AFF", Streak: 12},
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(habits)
+	} else if r.Method == http.MethodPost {
+		var habit Habit
 
-func createHabitHandler(w http.ResponseWriter, r *http.Request) {
-	var habit Habit
-
-	err := json.NewDecoder(r.Body).Decode(&habit)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON"})
-		return
+		err := json.NewDecoder(r.Body).Decode(&habit)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON"})
+			return
+		}
+		habit.ID = "3"
+		habit.Streak = 0
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(habit)
+	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
-	habit.ID = "3"
-	habit.Streak = 0
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(habit)
 }
 
 func formatHabit(name string, days int) string {
@@ -68,7 +70,6 @@ func (h *Habit) IncrementStreak() {
 func main() {
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/habits", habitsHandler)
-	http.HandleFunc("/habits/create", createHabitHandler)
 	fmt.Println("Server starting on: 8080")
 	http.ListenAndServe(":8080", nil)
 }
