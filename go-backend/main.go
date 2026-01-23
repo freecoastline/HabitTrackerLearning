@@ -26,10 +26,6 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 
 func habitsHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
-		habits := []Habit{
-			{ID: "1", Name: "Exercise", ColorHex: "#34C759", Streak: 5},
-			{ID: "2", Name: "Reading", ColorHex: "#007AFF", Streak: 12},
-		}
 		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(habits)
 	} else if r.Method == http.MethodPost {
@@ -41,8 +37,9 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid JSON"})
 			return
 		}
-		habit.ID = "3"
+		habit.ID = fmt.Sprintf("%d", len(habits)+1)
 		habit.Streak = 0
+		habits = append(habits, habit)
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusCreated)
 		json.NewEncoder(w).Encode(habit)
@@ -53,6 +50,7 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 
 func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/habits/")
+	fmt.Printf("DEBUG: Extracted ID='%s' from path='%s'\n", id, r.URL.Path)
 	if r.Method == http.MethodGet {
 		for _, habit := range habits {
 			if habit.ID == id {
@@ -73,7 +71,7 @@ func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Haibit not found"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
 	} else {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
