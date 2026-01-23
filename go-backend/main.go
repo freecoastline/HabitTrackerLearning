@@ -53,15 +53,30 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 
 func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/habits/")
-	for _, habit := range habits {
-		if habit.ID == id {
-			w.Header().Set("Content-Type", "application/json")
-			json.NewEncoder(w).Encode(habit)
-			return
+	if r.Method == http.MethodGet {
+		for _, habit := range habits {
+			if habit.ID == id {
+				w.Header().Set("Content-Type", "application/json")
+				json.NewEncoder(w).Encode(habit)
+				return
+			}
 		}
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
+	} else if r.Method == http.MethodDelete {
+		for i, habit := range habits {
+			if habit.ID == id {
+				habits = append(habits[:i], habits[i+1:]...)
+				w.WriteHeader(http.StatusNoContent)
+				return
+			}
+		}
+
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Haibit not found"})
+	} else {
+		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
-	w.WriteHeader(http.StatusNotFound)
-	json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
 }
 
 func formatHabit(name string, days int) string {
