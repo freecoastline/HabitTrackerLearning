@@ -61,6 +61,25 @@ func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		w.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
+	} else if r.Method == http.MethodPut {
+		var updatetedHabit Habit
+		err := json.NewDecoder(r.Body).Decode(&updatetedHabit)
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(w).Encode(map[string]string{"error": "Invalid Request"})
+		}
+
+		for i, habit := range habits {
+			if habit.ID == id {
+				updatetedHabit.ID = id
+				habits[i] = updatetedHabit
+				w.Header().Set("Content-type", "application/json")
+				json.NewEncoder(w).Encode(updatetedHabit)
+				return
+			}
+		}
+		w.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
 	} else if r.Method == http.MethodDelete {
 		for i, habit := range habits {
 			if habit.ID == id {
