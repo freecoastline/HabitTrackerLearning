@@ -50,7 +50,7 @@ func habitsHandler(w http.ResponseWriter, r *http.Request) {
 
 func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 	id := strings.TrimPrefix(r.URL.Path, "/habits/")
-	fmt.Printf("DEBUG: Extracted ID='%s' from path='%s'\n", id, r.URL.Path)
+	fmt.Printf("DEBUG: Exwtracted ID='%s' from path='%s'\n", id, r.URL.Path)
 	if r.Method == http.MethodGet {
 		for _, habit := range habits {
 			if habit.ID == id {
