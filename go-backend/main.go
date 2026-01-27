@@ -60,7 +60,7 @@ func habitByIDHandler(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode(map[string]string{"error": "Habit not found"})
+		json.NewEncoder(w).Encode(map[string]string{"error": "Hadit is not found"})
 	} else if r.Method == http.MethodPut {
 		var updatetedHabit Habit
 		err := json.NewDecoder(r.Body).Decode(&updatetedHabit)
