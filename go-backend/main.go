@@ -1,10 +1,14 @@
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
+
+	_ "github.com/lib/pq"
 )
 
 type Habit struct {
@@ -119,9 +123,15 @@ func (h *Habit) IncrementStreak() {
 }
 
 func main() {
-	http.HandleFunc("/habits/", habitByIDHandler)
-	http.HandleFunc("/health", healthHandler)
-	http.HandleFunc("/habits", habitsHandler)
-	fmt.Println("Server starting on: 8080")
-	http.ListenAndServe(":8080", nil)
+	connStr := "user=ken dbname=habittracker sslmode=disable"
+	db, err := sql.Open("postgres", connStr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+	err = db.Ping()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Successfully connected to database!")
 }
