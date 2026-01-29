@@ -134,4 +134,19 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println("Successfully connected to database!")
+
+	habit := Habit{
+		ID:       "1",
+		Name:     "Exercise",
+		ColorHex: "#34C759",
+		Streak:   5,
+	}
+
+	query := `INSERT INTO habits (id, name, color_hex, streak) VALUES ($1, $2, $3, $4)`
+
+	_, err = db.Exec(query, habit.ID, habit.Name, habit.ColorHex, habit.Streak)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Habit inserted successfully!")
 }
